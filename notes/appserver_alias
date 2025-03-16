@@ -1,0 +1,35 @@
+server {
+    listen 4566;
+    server_name 0.0.0.0;  # Replace with your domain or public IP
+
+
+    # Serve Static Files (CSS, JS, Images, Fonts)
+    location /default/static/ {
+           alias /home/doms/development/app/static;
+           expires 6M;
+           access_log off;
+           log_not_found off;
+    }
+
+    location /default/ {
+        proxy_pass http://127.0.0.1:8001/;  # Forward requests to Gunicorn
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header SCRIPT_NAME /default;  # Ensures Django respects the prefix
+
+        # Prevent timeouts for long requests
+        proxy_read_timeout 300;
+        proxy_connect_timeout 300;
+        proxy_send_timeout 300;
+    }
+
+    location ~ ^/(?P<user>[^/]+)/spa(/|$) {
+        root /home/;
+        index index.html;
+        try_files $uri $uri/ /$user/spa/index.html;
+    }
+
+
+}

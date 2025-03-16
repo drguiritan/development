@@ -1,0 +1,51 @@
+server {
+    listen 4566 ssl;
+    server_name 0.0.0.0;  # Replace with your domain or public IP
+
+
+    # SSL Certificate
+    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+
+    # Serve Static Files (CSS, JS, Images, Fonts)
+    location /default/static/ {
+           alias /home/doms/development/app/staticfiles/;
+    }
+
+   location /default/media/ {
+	   alias /home/doms/development/app/media/;
+   }
+
+    location /default/ {
+        proxy_pass http://127.0.0.1:8001/;  # Forward requests to Gunicorn
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # Prevent timeouts for long requests
+        proxy_read_timeout 300;
+        proxy_connect_timeout 300;
+        proxy_send_timeout 300;
+    }
+
+
+    location ~ ^/(?P<user>[^/]+)/spa(/|$) {
+        root /home/;
+        index index.html;
+        try_files $uri $uri/ /$user/spa/index.html;
+    }
+
+}
+
+server {
+    listen 80;
+    server_name 0.0.0.0;
+    return 301 https://$host:4566$request_uri;
+}
+
+

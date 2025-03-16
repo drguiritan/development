@@ -66,6 +66,8 @@ CSRF_TRUSTED_ORIGINS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'knox.auth.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',  # Allow basic auth (optional)
+        'rest_framework.authentication.SessionAuthentication',  # Allow session auth (optional)
     ],
 }
 
