@@ -8,3 +8,8 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 sudo cp /etc/ssl/certs/nginx-selfsigned.crt /usr/local/share/ca-certificates/nginx-selfsigned.crt
 
 sudo update-ca-certificates
+
+#force copy
+
+sudo cp -f /etc/ssl/certs/nginx-selfsigned.crt /usr/local/share/ca-certificates/
+sudo update-ca-certificates
