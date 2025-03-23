@@ -4,6 +4,8 @@ ps aux | grep nginx
 
 sudo tail -f /var/log/nginx/error.log
 
+root@e496b483a93d:/# sudo chown -R csp:www-data /home/csp/
+root@e496b483a93d:/# sudo chmod -R 755 /home/csp/
 root@e496b483a93d:/# sudo chown -R csp:www-data /home/csp/development
 root@e496b483a93d:/# sudo chmod -R 755 /home/csp/development
 
