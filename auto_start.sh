@@ -11,8 +11,8 @@ echo "Virtual environment activated."
 echo "Starting Gunicorn server..."
 
 # Start Gunicorn in the same shell (so the virtual environment remains active)
-exec gunicorn --reload --bind 0.0.0.0:8003 app.wsgi:application
+exec gunicorn --reload --bind 0.0.0.0:8001 app.wsgi:application
 
 # This will not be reached because `exec` replaces the current process
-echo "Gunicorn server is running on http://0.0.0.0:8003"
+echo "Gunicorn server is running on http://0.0.0.0:8001"
 

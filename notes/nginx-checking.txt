@@ -1,0 +1,12 @@
+sudo cat /etc/nginx/nginx.conf | grep user
+   or
+ps aux | grep nginx
+
+sudo tail -f /var/log/nginx/error.log
+
+root@e496b483a93d:/# sudo chown -R csp:www-data /home/csp/development
+root@e496b483a93d:/# sudo chmod -R 755 /home/csp/development
+
+
+---------------- check www-data permission ---------------------
+sudo -u www-data ls /home/csp/spa/

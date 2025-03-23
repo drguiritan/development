@@ -58,16 +58,21 @@ FORCE_SCRIPT_NAME = '/default'
 
 CSRF_TRUSTED_ORIGINS = [
     "http://172.23.155.46:4566",
-    "https://172.23.155.46:4566"  # If using HTTPS
+    "https://172.23.155.46:4566",  # If using HTTPS
+    "https://172.26.253.11:4444",
+    "http://172.26.253.11:4444",
 ]
 
 
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'knox.auth.TokenAuthentication',
-        'rest_framework.authentication.BasicAuthentication',  # Allow basic auth (optional)
-        'rest_framework.authentication.SessionAuthentication',  # Allow session auth (optional)
+        #'knox.auth.TokenAuthentication',
+        #'rest_framework.authentication.BasicAuthentication',  # Allow basic auth (optional)
+        #'rest_framework.authentication.SessionAuthentication',  # Allow session auth (optional)
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
     ],
 }
 
@@ -77,7 +82,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -132,8 +137,8 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'default_db1',
-        'USER': 'default',  # Ensure this is the correct user
+        'NAME': 'db1',
+        'USER': 'csp',  # Ensure this is the correct user
         'PASSWORD': '1234',  # Ensure this is the correct password
         'HOST': 'localhost',  # Use 'localhost' for UNIX socket
         'PORT': '3306',  # Default MariaDB port
@@ -176,7 +181,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+#STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

@@ -10,12 +10,13 @@ class HelloWorld(APIView):
 
 class ContactListView(APIView):
     #class helper
-
-    def get_permissions(self):
-        """Allow GET for everyone, require authentication for POST."""
-        if self.request.method == 'GET':
-            return [AllowAny()]  # Public access
-        return [IsAuthenticated()]  # Login required for POST
+    #def get_permissions(self):
+    #    """Allow GET for everyone, require authentication for POST."""
+    #    if self.request.method == 'GET':
+    #        return [AllowAny()]  # Public access
+    #    return [IsAuthenticated()]  # Login required for POST
+    
+    permission_classes = [AllowAny]  # Public access for all method 
     
     def create_contact(self, data):
         """Helper function to create a Contact object from data."""
